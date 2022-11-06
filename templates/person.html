@@ -1,0 +1,39 @@
+{%  extends 'base.html' %}
+
+{% block title %}Person{% endblock title %}
+
+{% block content %}
+    <form action="." method="post" name="person_form" id="id_person_form">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="{{ form.first_name.auto_id }}" class="form-label">{{ form.first_name.label }}</label>
+            {{ form.first_name }}
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.last_name.auto_id }}" class="form-label">{{ form.last_name.label }}</label>
+            {{ form.last_name }}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    {% if persons_list %}
+        <table class="table table-bordered mt-3">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Created At</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for person in persons_list %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ person.full_name }}</td>
+                        <td>{{ person.created_at }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock content %}

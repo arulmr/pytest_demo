@@ -1,0 +1,20 @@
+{%  extends 'base.html' %}
+
+{% block title %}Cat Fact{% endblock title %}
+
+{% block content %}
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th scope="col">Cat Fact</th>
+                <th scope="col">Length</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ data.fact }}</td>
+                <td>{{ data.length }}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock content %}
