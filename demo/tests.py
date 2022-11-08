@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.core.serializers.json import DjangoJSONEncoder
 from django.urls import reverse
 
@@ -76,3 +77,36 @@ class TestCatApiView:
         assert response.status_code == 200
         assert response.context['data']['fact'] == 'This is a cat fact.'
         assert response.context['data']['length'] == 19
+
+
+def test_admin_user_login(admin_client):
+    # admin_client will be logged in as a superuser by default. Superuser will be created if it doesn't exist.
+    response = admin_client.get('/admin/')
+    assert response.wsgi_request.user.is_superuser
+
+
+def test_user_login(client):
+    # client will not be logged in by default.
+    response = client.get('/admin/')
+    assert not response.wsgi_request.user.id  # Anonymous user
+
+    # Creating an user
+    user = User.objects.create_superuser(
+        'superuser',
+        email='superuser@example.com',
+        password='login-secret',
+    )
+
+    # Logging in as the created user
+    client.login(username='superuser', password='login-secret')
+    response = client.get('/admin/')
+
+    # Assert the current user
+    assert response.wsgi_request.user == user
+
+    # Logout from the current user
+    client.logout()
+
+    # Assert no user is logged in.
+    response = client.get('/admin/')
+    assert not response.wsgi_request.user.id  # Anonymous user
