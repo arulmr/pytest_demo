@@ -20,6 +20,6 @@ from demo import views as demo_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('person/', demo_views.persons),
-    path('api/', demo_views.cat_api),
+    path('person/', demo_views.persons, name='persons'),
+    path('api/', demo_views.cat_api, name='cat_api'),
 ]

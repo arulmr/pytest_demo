@@ -13,7 +13,7 @@ def persons(request):
         new_person = PersonForm(request.POST)
         new_person.save()
 
-    persons_list = Person.objects.all()
+    persons_list = Person.objects.all().order_by('-created_at')
 
     return render(request, 'person.html', locals())
 
