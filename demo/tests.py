@@ -12,12 +12,6 @@ pytestmark = pytest.mark.django_db
 
 
 @pytest.fixture
-def mock_cat_api():
-    with requests_mock.Mocker(json_encoder=DjangoJSONEncoder) as m:
-        m.register_uri('GET', 'https://catfact.ninja/fact', json={'fact': 'This is a cat fact.', 'length': 19})
-
-
-@pytest.fixture
 def generate_100_person_objs():
     # Using Django dynamic fixtures to generate 100 records at once. Values will be randomly generated.
     G(Person, n=100)
