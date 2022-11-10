@@ -89,4 +89,4 @@ TOTAL                               109      3    97%
 ```python
 pytest --cov-report html --cov=demo/
 ```
-<a href="https://sample-pytest-cov.surge.sh" target="_blank">Sample HTML report</a>
+[Sample HTML report](https://sample-pytest-cov.surge.sh)
